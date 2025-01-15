@@ -1,0 +1,1249 @@
+{
+    "items": [
+        {
+            "id": "114176596",
+            "premium": false,
+            "name": "Главный специалист отдела правовой статистики и защиты информации",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": {
+                "from": 45000,
+                "to": null,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "улица Боевых Дружин",
+                "building": "26А",
+                "lat": 56.840818,
+                "lng": 60.584557,
+                "description": null,
+                "raw": "Екатеринбург, улица Боевых Дружин, 26А",
+                "metro": null,
+                "metro_stations": [],
+                "id": "14195133"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-19T12:12:14+0300",
+            "created_at": "2024-12-19T12:12:14+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=114176596",
+            "show_logo_in_search": null,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/114176596?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/114176596",
+            "relations": [],
+            "employer": {
+                "id": "844828",
+                "name": "Уральская транспортная прокуратура",
+                "url": "https://api.hh.ru/employers/844828",
+                "alternate_url": "https://hh.ru/employer/844828",
+                "logo_urls": {
+                    "90": "https://img.hhcdn.ru/employer-logo/6868974.jpeg",
+                    "original": "https://img.hhcdn.ru/employer-logo-original/1312179.jpg",
+                    "240": "https://img.hhcdn.ru/employer-logo/6868975.jpeg"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=844828",
+                "accredited_it_employer": false,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "Квалификационные требования: высшее образование. Высшее образование не ниже уровня бакалавриата (требований к направлению подготовки (специальности) высшего образования не установлено, предпочтение...",
+                "responsibility": "Делопроизводство (регистрация и учет документов отдела). - Принимать участие в проведении сверок статистических показателей государственной отчетности со сведениями правоохранительных органов. - "
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "ON_SITE",
+                    "name": "На месте работодателя"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "40",
+                    "name": "Другое"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "noExperience",
+                "name": "Нет опыта"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "108078378",
+            "premium": false,
+            "name": "Менеджер по продажам (лидген) с ростом до проектных продаж",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": {
+                "from": 100000,
+                "to": null,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "микрорайон Втузгородок, улица Кулибина",
+                "building": "2",
+                "lat": 56.855118,
+                "lng": 60.657374,
+                "description": null,
+                "raw": "Екатеринбург, микрорайон Втузгородок, улица Кулибина, 2",
+                "metro": {
+                    "station_name": "Динамо",
+                    "line_name": "Север-Юг",
+                    "station_id": "48.265",
+                    "line_id": "48",
+                    "lat": 56.847818,
+                    "lng": 60.599406
+                },
+                "metro_stations": [
+                    {
+                        "station_name": "Динамо",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.265",
+                        "line_id": "48",
+                        "lat": 56.847818,
+                        "lng": 60.599406
+                    },
+                    {
+                        "station_name": "Уральская",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.264",
+                        "line_id": "48",
+                        "lat": 56.858056,
+                        "lng": 60.600816
+                    }
+                ],
+                "id": "530518"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-23T14:07:01+0300",
+            "created_at": "2024-12-23T14:07:01+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=108078378",
+            "branding": {
+                "type": "MAKEUP",
+                "tariff": null
+            },
+            "show_logo_in_search": true,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/108078378?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/108078378",
+            "relations": [],
+            "employer": {
+                "id": "111611",
+                "name": "Айдеко",
+                "url": "https://api.hh.ru/employers/111611",
+                "alternate_url": "https://hh.ru/employer/111611",
+                "logo_urls": {
+                    "90": "https://img.hhcdn.ru/employer-logo/3402685.png",
+                    "240": "https://img.hhcdn.ru/employer-logo/3402686.png",
+                    "original": "https://img.hhcdn.ru/employer-logo-original/740427.png"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=111611",
+                "accredited_it_employer": true,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "...циклом сделки от 3-х месяцев до 1 года. Желание развиваться в сфере IT и приобретать экспертизу в <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>.",
+                "responsibility": "Поиск потенциальных клиентов (проработка баз). Холодный звонок, выход на ЛПР, выявление потребности клиента, договориться о встрече. Консультирование по продукту, формирование..."
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "70",
+                    "name": "Менеджер по продажам, менеджер по работе с клиентами"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between1And3",
+                "name": "От 1 года до 3 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "114066088",
+            "premium": false,
+            "name": "Начальник Управления информационных технологий",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": {
+                "from": 120000,
+                "to": null,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "Кировский район, микрорайон Пионерский, улица Данилы Зверева",
+                "building": "31",
+                "lat": 56.869874,
+                "lng": 60.651733,
+                "description": null,
+                "raw": "Екатеринбург, Кировский район, микрорайон Пионерский, улица Данилы Зверева, 31",
+                "metro": {
+                    "station_name": "Машиностроителей",
+                    "line_name": "Север-Юг",
+                    "station_id": "48.263",
+                    "line_id": "48",
+                    "lat": 56.878517,
+                    "lng": 60.61218
+                },
+                "metro_stations": [
+                    {
+                        "station_name": "Машиностроителей",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.263",
+                        "line_id": "48",
+                        "lat": 56.878517,
+                        "lng": 60.61218
+                    }
+                ],
+                "id": "1052215"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-19T10:14:52+0300",
+            "created_at": "2024-12-19T10:14:52+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=114066088",
+            "show_logo_in_search": null,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/114066088?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/114066088",
+            "relations": [],
+            "employer": {
+                "id": "897867",
+                "name": "Расчетный центр Урала",
+                "url": "https://api.hh.ru/employers/897867",
+                "alternate_url": "https://hh.ru/employer/897867",
+                "logo_urls": {
+                    "240": "https://img.hhcdn.ru/employer-logo/709500.jpeg",
+                    "90": "https://img.hhcdn.ru/employer-logo/709499.jpeg",
+                    "original": "https://img.hhcdn.ru/employer-logo-original/120867.jpg"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=897867",
+                "accredited_it_employer": false,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "Опыт работы в сфере IT от 3 до 6 лет. Высшее образование в области информационных технологий или смежных областях. ",
+                "responsibility": "Обеспечение бесперебойной работы IT-систем и сервисов. Контроль за соблюдением <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>. Взаимодействие с поставщиками IT-услуг и оборудования. "
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "ON_SITE",
+                    "name": "На месте работодателя"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "113",
+                    "name": "Системный администратор"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "moreThan6",
+                "name": "Более 6 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "109027514",
+            "premium": false,
+            "name": "Младший системный администратор",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": {
+                "from": 50000,
+                "to": 60000,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "Луначарского",
+                "building": "36",
+                "lat": 56.853247,
+                "lng": 60.615117,
+                "description": null,
+                "raw": "Екатеринбург, Луначарского, 36",
+                "metro": {
+                    "station_name": "Уральская",
+                    "line_name": "Север-Юг",
+                    "station_id": "48.264",
+                    "line_id": "48",
+                    "lat": 56.858056,
+                    "lng": 60.600816
+                },
+                "metro_stations": [
+                    {
+                        "station_name": "Уральская",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.264",
+                        "line_id": "48",
+                        "lat": 56.858056,
+                        "lng": 60.600816
+                    }
+                ],
+                "id": "78246"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-23T07:34:43+0300",
+            "created_at": "2024-12-23T07:34:43+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=109027514",
+            "branding": {
+                "type": "CONSTRUCTOR",
+                "tariff": "BASIC"
+            },
+            "show_logo_in_search": true,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/109027514?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/109027514",
+            "relations": [],
+            "employer": {
+                "id": "161415",
+                "name": "Астерит",
+                "url": "https://api.hh.ru/employers/161415",
+                "alternate_url": "https://hh.ru/employer/161415",
+                "logo_urls": {
+                    "original": "https://img.hhcdn.ru/employer-logo-original/1254485.png",
+                    "90": "https://img.hhcdn.ru/employer-logo/6638369.png",
+                    "240": "https://img.hhcdn.ru/employer-logo/6638370.png"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=161415",
+                "accredited_it_employer": true,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "Навыки администрирования Windows Server, Windows 7/10. - Навыки администрирования Active Directory. - Навыки администрирования ЛВС. - Знания аппаратной части ПК. - ",
+                "responsibility": "Решение инцидентов конечных пользователей. - Установка и настройка офисных программ и компонентов. - Ремонт и обслуживание ПК и оргтехники. - Администрирования ЛВС. - "
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "113",
+                    "name": "Системный администратор"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "noExperience",
+                "name": "Нет опыта"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "114817237",
+            "premium": false,
+            "name": "Руководитель направления продаж (ИБ)",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": {
+                "from": 200000,
+                "to": null,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "микрорайон Втузгородок, улица Кулибина",
+                "building": "2",
+                "lat": 56.855118,
+                "lng": 60.657374,
+                "description": null,
+                "raw": "Екатеринбург, микрорайон Втузгородок, улица Кулибина, 2",
+                "metro": {
+                    "station_name": "Динамо",
+                    "line_name": "Север-Юг",
+                    "station_id": "48.265",
+                    "line_id": "48",
+                    "lat": 56.847818,
+                    "lng": 60.599406
+                },
+                "metro_stations": [
+                    {
+                        "station_name": "Динамо",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.265",
+                        "line_id": "48",
+                        "lat": 56.847818,
+                        "lng": 60.599406
+                    },
+                    {
+                        "station_name": "Уральская",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.264",
+                        "line_id": "48",
+                        "lat": 56.858056,
+                        "lng": 60.600816
+                    }
+                ],
+                "id": "530518"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-25T12:31:30+0300",
+            "created_at": "2024-12-25T12:31:30+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=114817237",
+            "branding": {
+                "type": "MAKEUP",
+                "tariff": null
+            },
+            "show_logo_in_search": true,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/114817237?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/114817237",
+            "relations": [],
+            "employer": {
+                "id": "111611",
+                "name": "Айдеко",
+                "url": "https://api.hh.ru/employers/111611",
+                "alternate_url": "https://hh.ru/employer/111611",
+                "logo_urls": {
+                    "90": "https://img.hhcdn.ru/employer-logo/3402685.png",
+                    "240": "https://img.hhcdn.ru/employer-logo/3402686.png",
+                    "original": "https://img.hhcdn.ru/employer-logo-original/740427.png"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=111611",
+                "accredited_it_employer": true,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "...и более в общей структуре). Глубокие знания отрасли <highlighttext>информационных</highlighttext> технологий и <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>. Опыт работы с партнерским каналом продаж станет...",
+                "responsibility": "Разрабатывать и воплощать в жизнь инновационные стратегии продаж, опираясь на анализ данных и рыночных тенденций."
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "ON_SITE",
+                    "name": "На месте работодателя"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "106",
+                    "name": "Руководитель отдела продаж"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between3And6",
+                "name": "От 3 до 6 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "114622000",
+            "premium": false,
+            "name": "Продуктовый маркетолог B2B",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": null,
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "улица Ткачей",
+                "building": "23",
+                "lat": 56.81673,
+                "lng": 60.631916,
+                "description": null,
+                "raw": "Екатеринбург, улица Ткачей, 23",
+                "metro": null,
+                "metro_stations": [],
+                "id": "544607"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-23T17:22:22+0300",
+            "created_at": "2024-12-23T17:22:22+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=114622000",
+            "show_logo_in_search": null,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/114622000?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/114622000",
+            "relations": [],
+            "employer": {
+                "id": "662065",
+                "name": "Уральский центр систем безопасности",
+                "url": "https://api.hh.ru/employers/662065",
+                "alternate_url": "https://hh.ru/employer/662065",
+                "logo_urls": {
+                    "240": "https://img.hhcdn.ru/employer-logo/3093221.png",
+                    "90": "https://img.hhcdn.ru/employer-logo/3093220.png",
+                    "original": "https://img.hhcdn.ru/employer-logo-original/663022.png"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=662065",
+                "accredited_it_employer": true,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "Успешный опыт в B2B-маркетинге. Работа с Enterprise-сегментом станет преимуществом. Наработанная практика в управлении проектами и способность...",
+                "responsibility": "Разработка и реализация маркетинговой стратегии для вверенного направления. Работа с ЦА: создание портрета, CustDev, CJM и другие исследования, формирование ценностного..."
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "remote",
+                "name": "Удаленная работа"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "ON_SITE",
+                    "name": "На месте работодателя"
+                },
+                {
+                    "id": "REMOTE",
+                    "name": "Удалённо"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "68",
+                    "name": "Менеджер по маркетингу, интернет-маркетолог"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between3And6",
+                "name": "От 3 до 6 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "114824598",
+            "premium": false,
+            "name": "Ведущий специалист по безопасности",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "1298",
+                "name": "Ревда (Свердловская область)",
+                "url": "https://api.hh.ru/areas/1298"
+            },
+            "salary": {
+                "from": 100000,
+                "to": null,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Ревда",
+                "street": "улица Карла Либкнехта",
+                "building": "3",
+                "lat": 56.801883,
+                "lng": 59.936359,
+                "description": null,
+                "raw": "Ревда, улица Карла Либкнехта, 3",
+                "metro": null,
+                "metro_stations": [],
+                "id": "14890268"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-25T15:18:09+0300",
+            "created_at": "2024-12-25T15:18:09+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=114824598",
+            "branding": {
+                "type": "CONSTRUCTOR",
+                "tariff": "BASIC"
+            },
+            "show_logo_in_search": true,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/114824598?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/114824598",
+            "relations": [],
+            "employer": {
+                "id": "10653969",
+                "name": "ПромCорт",
+                "url": "https://api.hh.ru/employers/10653969",
+                "alternate_url": "https://hh.ru/employer/10653969",
+                "logo_urls": {
+                    "original": "https://img.hhcdn.ru/employer-logo-original/1212378.jpg",
+                    "240": "https://img.hhcdn.ru/employer-logo/6469962.jpeg",
+                    "90": "https://img.hhcdn.ru/employer-logo/6469961.jpeg"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=10653969",
+                "accredited_it_employer": false,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "Образование: высшее (юридическое, экономическое). Опыт: от 1 года (желательно в производстве). Наличие свидетельств/ удостоверений. Владение ПО: Microsoft Office (Word, Excel...",
+                "responsibility": "Провидение мероприятия по обеспечению экономической, кадровой, <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>, обеспечению пропускного и внутриобъектового режимов, антитеррористической защищенности, профилактических мероприятий. Предоставляет руководителю управления..."
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "ON_SITE",
+                    "name": "На месте работодателя"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "120",
+                    "name": "Специалист службы безопасности"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between1And3",
+                "name": "От 1 года до 3 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "113848959",
+            "premium": false,
+            "name": "Ведущий специалист-контролер-ревизор",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "1291",
+                "name": "Нижний Тагил",
+                "url": "https://api.hh.ru/areas/1291"
+            },
+            "salary": {
+                "from": 51500,
+                "to": 80000,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": null,
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-17T09:25:11+0300",
+            "created_at": "2024-12-17T09:25:11+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=113848959",
+            "show_logo_in_search": null,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/113848959?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/113848959",
+            "relations": [],
+            "employer": {
+                "id": "4942290",
+                "name": "ТФОМС Свердловской области",
+                "url": "https://api.hh.ru/employers/4942290",
+                "alternate_url": "https://hh.ru/employer/4942290",
+                "logo_urls": {
+                    "original": "https://img.hhcdn.ru/employer-logo-original/784889.png",
+                    "240": "https://img.hhcdn.ru/employer-logo/3580448.png",
+                    "90": "https://img.hhcdn.ru/employer-logo/3580447.png"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=4942290",
+                "accredited_it_employer": false,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "...работу; методов организации труда в сфере финансового контроля; принципов <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>; норм делового общения; порядка работы со служебной информацией; основ...",
+                "responsibility": "участвует в ревизиях и проводит проверки участников системы обязательного медицинского страхования (далее ОМС) по выполнению Закона РФ «Об обязательном медицинском..."
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "fullDay",
+                "name": "Полный день"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "16",
+                    "name": "Аудитор"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between1And3",
+                "name": "От 1 года до 3 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "113938339",
+            "premium": false,
+            "name": "Руководитель по информационной безопасности/Заместитель директора по информационной безопасности",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": null,
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": null,
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-17T23:01:46+0300",
+            "created_at": "2024-12-17T23:01:46+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=113938339",
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/113938339?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/113938339",
+            "relations": [],
+            "employer": {
+                "id": "1303930",
+                "name": "Геномед",
+                "url": "https://api.hh.ru/employers/1303930",
+                "alternate_url": "https://hh.ru/employer/1303930",
+                "logo_urls": null,
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=1303930",
+                "accredited_it_employer": false,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "...образование (<highlighttext>информационная</highlighttext> <highlighttext>безопасность</highlighttext>) или профессиональная переподготовка в области «<highlighttext>Информационная</highlighttext> <highlighttext>безопасность</highlighttext>». От 3-6 лет соответствующего опыта. Сертификация внешней <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>...",
+                "responsibility": "...<highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext>, методологию безопасности, соблюдение требований безопасности, программы повышения осведомленности о безопасности и политику безопасности. Проводить регулярную оценку рисков <highlighttext>информационной</highlighttext>..."
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "remote",
+                "name": "Удаленная работа"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "REMOTE",
+                    "name": "Удалённо"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "160",
+                    "name": "DevOps-инженер"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between1And3",
+                "name": "От 1 года до 3 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        },
+        {
+            "id": "107032911",
+            "premium": false,
+            "name": "Инженер по информационной безопасности",
+            "department": null,
+            "has_test": false,
+            "response_letter_required": false,
+            "area": {
+                "id": "3",
+                "name": "Екатеринбург",
+                "url": "https://api.hh.ru/areas/3"
+            },
+            "salary": {
+                "from": 90000,
+                "to": 150000,
+                "currency": "RUR",
+                "gross": false
+            },
+            "type": {
+                "id": "open",
+                "name": "Открытая"
+            },
+            "address": {
+                "city": "Екатеринбург",
+                "street": "Луначарского",
+                "building": "36",
+                "lat": 56.853247,
+                "lng": 60.615117,
+                "description": null,
+                "raw": "Екатеринбург, Луначарского, 36",
+                "metro": {
+                    "station_name": "Уральская",
+                    "line_name": "Север-Юг",
+                    "station_id": "48.264",
+                    "line_id": "48",
+                    "lat": 56.858056,
+                    "lng": 60.600816
+                },
+                "metro_stations": [
+                    {
+                        "station_name": "Уральская",
+                        "line_name": "Север-Юг",
+                        "station_id": "48.264",
+                        "line_id": "48",
+                        "lat": 56.858056,
+                        "lng": 60.600816
+                    }
+                ],
+                "id": "78246"
+            },
+            "response_url": null,
+            "sort_point_distance": null,
+            "published_at": "2024-12-23T07:34:37+0300",
+            "created_at": "2024-12-23T07:34:37+0300",
+            "archived": false,
+            "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=107032911",
+            "branding": {
+                "type": "CONSTRUCTOR",
+                "tariff": "BASIC"
+            },
+            "show_logo_in_search": true,
+            "insider_interview": null,
+            "url": "https://api.hh.ru/vacancies/107032911?host=hh.ru",
+            "alternate_url": "https://hh.ru/vacancy/107032911",
+            "relations": [],
+            "employer": {
+                "id": "161415",
+                "name": "Астерит",
+                "url": "https://api.hh.ru/employers/161415",
+                "alternate_url": "https://hh.ru/employer/161415",
+                "logo_urls": {
+                    "original": "https://img.hhcdn.ru/employer-logo-original/1254485.png",
+                    "90": "https://img.hhcdn.ru/employer-logo/6638369.png",
+                    "240": "https://img.hhcdn.ru/employer-logo/6638370.png"
+                },
+                "vacancies_url": "https://api.hh.ru/vacancies?employer_id=161415",
+                "accredited_it_employer": true,
+                "trusted": true
+            },
+            "snippet": {
+                "requirement": "Знание сетевой и ИТ инфраструктуры. Опыт администрирования ОС Windows, Linux. Умение прочесть код скрипта / написать простую автоматизацию. Базовые компетенции в...",
+                "responsibility": "Проектирование, внедрение и техподдержка решений по <highlighttext>информационной</highlighttext> <highlighttext>безопасности</highlighttext> (ИБ). Консультирование клиентов компании по вопросам функционирования и настройки ПО. "
+            },
+            "contacts": null,
+            "schedule": {
+                "id": "remote",
+                "name": "Удаленная работа"
+            },
+            "working_days": [],
+            "working_time_intervals": [],
+            "working_time_modes": [],
+            "accept_temporary": false,
+            "fly_in_fly_out_duration": [],
+            "work_format": [
+                {
+                    "id": "ON_SITE",
+                    "name": "На месте работодателя"
+                },
+                {
+                    "id": "REMOTE",
+                    "name": "Удалённо"
+                },
+                {
+                    "id": "HYBRID",
+                    "name": "Гибрид"
+                }
+            ],
+            "working_hours": [
+                {
+                    "id": "HOURS_8",
+                    "name": "8 часов"
+                }
+            ],
+            "work_schedule_by_days": [
+                {
+                    "id": "FIVE_ON_TWO_OFF",
+                    "name": "5/2"
+                }
+            ],
+            "night_shifts": false,
+            "professional_roles": [
+                {
+                    "id": "116",
+                    "name": "Специалист по информационной безопасности"
+                }
+            ],
+            "accept_incomplete_resumes": false,
+            "experience": {
+                "id": "between1And3",
+                "name": "От 1 года до 3 лет"
+            },
+            "employment": {
+                "id": "full",
+                "name": "Полная занятость"
+            },
+            "employment_form": {
+                "id": "FULL",
+                "name": "Полная"
+            },
+            "internship": false,
+            "adv_response_url": null,
+            "is_adv_vacancy": false,
+            "adv_context": null
+        }
+    ],
+    "found": 242,
+    "pages": 25,
+    "page": 0,
+    "per_page": 10,
+    "clusters": null,
+    "arguments": null,
+    "fixes": null,
+    "suggests": null,
+    "alternate_url": "https://hh.ru/search/vacancy?area=1261&enable_snippets=true&items_on_page=10&text=%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F+%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C"
+}
