@@ -293,15 +293,22 @@ def create_keyboard(buttons, one_time_keyboard=True, include_back=False, include
 
     # Добавляем основные кнопки
     for button in buttons:
-        markup.add(types.KeyboardButton(button))
+        if button == "Изменить данные":
+            markup.add(types.KeyboardButton("🛠️ Изменить данные"))
+        elif button == "Поиск вакансий":
+            markup.add(types.KeyboardButton("🔎 Поиск вакансий"))
+        elif button == "Анализ вакансий":
+            markup.add(types.KeyboardButton("📈 Анализ вакансий"))
+        else:
+            markup.add(types.KeyboardButton(button))
 
     # Добавляем кнопку "Назад", если нужно
     if include_back:
-        markup.add(types.KeyboardButton("Назад"))
+        markup.add(types.KeyboardButton("🔙 Назад"))
 
     # Добавляем кнопку "Главное меню", если нужно
     if include_main_menu:
-        markup.add(types.KeyboardButton("Главное меню"))
+        markup.add(types.KeyboardButton("🏠 Главное меню"))
 
     return markup
 prompts = {
@@ -383,14 +390,14 @@ def start_handler(message):
     Приветственное сообщение и вывод кнопок.
     """
     user_data_entry = get_user_data(message.chat.id)
-    markup = create_keyboard(["Изменить данные", "Поиск вакансий", "Анализ вакансий"], include_main_menu=False)
+    markup = create_keyboard(["🛠️ Изменить данные", "🔎 Поиск вакансий", "📈 Анализ вакансий"], include_main_menu=False)
 
     if user_data_entry:
         _, username, age, gender, city, experience = user_data_entry
         bot.send_message(
             message.chat.id,
             f"Привет снова, {username}! Ваши данные:\n"
-            f"Возраст: {age}\nПол: {gender}\nГород: {city}\nОпыт работы: {experience}\n\nВыберите действие:",
+            f"🎂 Возраст: {age}\n👫 Пол: {gender}\n🏙️ Город: {city}\n📅 Опыт работы: {experience}\n\nВыберите действие:",
             reply_markup=markup
         )
     else:
@@ -449,13 +456,13 @@ def tuple_to_dict(user_data_tuple):
 
 @bot.message_handler(func=lambda message: message.text == "Изменить данные")
 
-@bot.message_handler(func=lambda message: message.text == "Главное меню")
+@bot.message_handler(func=lambda message: message.text == "🏠 Главное меню")
 def handle_main_menu(message):
     """
     Обрабатывает нажатие кнопки "Главное меню".
     """
     user_data_entry = get_user_data(message.chat.id)
-    markup = create_keyboard(["Изменить данные", "Поиск вакансий", "Анализ вакансий"], include_main_menu=False)
+    markup = create_keyboard(["🛠️ Изменить данные", "🔎 Поиск вакансий", "📈 Анализ вакансий"], include_main_menu=False)
 
     if user_data_entry:
         _, username, age, gender, city, experience = user_data_entry
@@ -463,7 +470,7 @@ def handle_main_menu(message):
             message.chat.id,
             f"Вы вернулись в главное меню, {username}!\n"
             f"Ваши данные:\n"
-            f"Возраст: {age}\nПол: {gender}\nГород: {city}\nОпыт работы: {experience}\n\nВыберите действие:",
+            f"🎂 Возраст: {age}\n👫 Пол: {gender}\n🏙️ Город: {city}\n📅 Опыт работы: {experience}\n\nВыберите действие:",
             reply_markup=markup
         )
     else:
@@ -473,7 +480,7 @@ def handle_main_menu(message):
             reply_markup=markup
         )
 
-@bot.message_handler(func=lambda message: message.text == "Изменить данные")
+@bot.message_handler(func=lambda message: message.text == "🛠️ Изменить данные")
 def handle_edit_data(message):
     """
     Обрабатывает запрос на изменение данных пользователя.
@@ -521,6 +528,16 @@ def ask_next_step(message, user_data, prompt, field_name, options=None):
         include_main_menu=include_main_menu
     )
 
+    # Добавляем смайлики к подсказкам
+    if field_name == "age":
+        prompt = "🎂 " + prompt
+    elif field_name == "gender":
+        prompt = "👫 " + prompt
+    elif field_name == "city":
+        prompt = "🏙️ " + prompt
+    elif field_name == "experience":
+        prompt = "📅 " + prompt
+
     bot.send_message(message.chat.id, prompt, reply_markup=markup)
 
     # Регистрируем следующий шаг
@@ -538,7 +555,7 @@ def handle_user_input(message, user_data, field_name, options=None):
     input_value = message.text.strip()
 
     # Если пользователь нажал "Назад"
-    if input_value == "Назад":
+    if input_value == "🔙 Назад":
         previous_field = get_previous_field(field_name)
         if previous_field:
             ask_next_step(
@@ -553,7 +570,7 @@ def handle_user_input(message, user_data, field_name, options=None):
         return
 
     # Если пользователь нажал "Главное меню" (только на последнем шаге)
-    if input_value == "Главное меню" and field_name == "experience":
+    if input_value == "🏠 Главное меню" and field_name == "experience":
         handle_main_menu(message)
         return
 
@@ -655,10 +672,10 @@ experience_mapping = {
 }
 
 
-@bot.message_handler(func=lambda message: message.text == "Поиск вакансий")
+@bot.message_handler(func=lambda message: message.text == "🔎 Поиск вакансий")
 def handle_search_button(message):
     """
-    Обрабатывает нажатие кнопки "Поиск вакансий".
+    Обрабатывает нажатие кнопки "🔎 Поиск вакансий".
     """
     bot.send_message(message.chat.id, "Введите вакансию, которую хотите найти.")
     bot.register_next_step_handler(message, search_command_no_command)
@@ -893,7 +910,7 @@ def analyze_texts(texts):
     return word_freq.most_common(10)
 
 
-@bot.message_handler(func=lambda message: message.text == "Поиск вакансий")
+@bot.message_handler(func=lambda message: message.text == "🔎 Поиск вакансий")
 def handle_search_button(message):
     user_data_entry = get_user_data(message.chat.id)
     if user_data_entry:
@@ -1070,10 +1087,10 @@ def search_command(message):
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
 
-@bot.message_handler(func=lambda message: message.text == "Анализ вакансий")
+@bot.message_handler(func=lambda message: message.text == "📈 Анализ вакансий")
 def handle_analyze_button(message):
     """
-    Обрабатывает нажатие кнопки "Анализ вакансий".
+    Обрабатывает нажатие кнопки "📈 Анализ вакансий".
     """
     bot.send_message(message.chat.id, "Введите запрос для анализа вакансий, например: 'Python разработчик'.")
     bot.register_next_step_handler(message, analyze_query)
