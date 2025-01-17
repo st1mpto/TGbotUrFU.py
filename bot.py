@@ -1,30 +1,20 @@
-import re
 import telebot
 from telebot import types
 import requests
-from transformers import pipeline
 import sqlite3
-import time
 from bs4 import BeautifulSoup
 import spacy
 from collections import defaultdict
 import nltk
 from collections import Counter
-from nltk.util import ngrams
 from transformers import pipeline
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import KMeans
-from collections import Counter
-from nltk.corpus import stopwords
-import string
-from sentence_transformers import SentenceTransformer
-from sklearn.cluster import KMeans
-from collections import Counter
-from transformers import pipeline
-from sklearn.metrics.pairwise import cosine_similarity
-from sentence_transformers import SentenceTransformer
-from sklearn.cluster import KMeans
-import numpy as np
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+import time
 
 # Модель для NER
 ner_model = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", aggregation_strategy="simple")
@@ -164,27 +154,75 @@ def clean_text_with_bs4(text):
     cleaned_text = soup.get_text()
     return " ".join(cleaned_text.split())  # Убираем лишние пробелы
 
+def parse_key_skills_selenium(vacancy_url):
+    """
+    Парсит ключевые навыки со страницы вакансии на HeadHunter с использованием Selenium.
+    """
+    # Настройки для Chrome
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")  # Запуск в фоновом режиме (без открытия окна браузера)
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+
+    # Используем ChromeDriver из PATH
+    driver = webdriver.Chrome(options=chrome_options)
+
+    try:
+        # Загрузка страницы вакансии
+        driver.get(vacancy_url)
+        time.sleep(5)  # Ждем загрузки страницы (можно настроить точнее)
+
+        # Поиск блока с ключевыми навыками
+        skills_block = driver.find_elements(By.CLASS_NAME, "vacancy-skill-list--JsTYRZ5o6dsoavK7")
+        if not skills_block:
+            print("Ключевые навыки не найдены.")
+            return []
+
+        # Извлечение текста навыков
+        skills = []
+        for skill in skills_block[0].find_elements(By.CLASS_NAME, "magritte-tag__label___YHV-o_3-0-25"):
+            skills.append(skill.text.strip())
+
+        return skills
+
+    except Exception as e:
+        print(f"Ошибка при парсинге: {e}")
+        return []
+
+    finally:
+        driver.quit()  # Закрываем браузер
 
 def process_vacancy(vac):
     """
-    Обрабатывает данные одной вакансии, возвращая очищенные обязанности.
+    Обрабатывает данные одной вакансии, возвращая очищенные обязанности и ключевые навыки.
     """
     snippet = vac.get("snippet", {})
     description = snippet.get("responsibility", None)
 
     if description is None:
         print(f"Вакансия без описания: {vac.get('name', 'Без названия')}")
-        return "Описание не указано."
+        return "Описание не указано.", []
 
     # Удаление HTML-тегов и очистка текста
     description = clean_text_with_bs4(description).strip()
 
     # Проверка длины текста
     if not description or len(description) < 10:
-        return "Требования не указаны."
+        return "Требования не указаны.", []
 
-    return description  # Возвращаем очищенный текст без подсчета частоты
+    # Извлекаем ключевые навыки из API
+    key_skills = vac.get("key_skills", [])
+    if key_skills:
+        key_skills_list = [skill["name"] for skill in key_skills]
+    else:
+        # Если ключевые навыки не указаны в API, используем Selenium для парсинга
+        vacancy_url = vac.get("alternate_url", "")
+        if vacancy_url:
+            key_skills_list = parse_key_skills_selenium(vacancy_url)
+        else:
+            key_skills_list = []
 
+    return description, key_skills_list  # Возвращаем очищенный текст и ключевые навыки
 
 def extract_key_phrases(text):
     """
@@ -699,15 +737,24 @@ def search_command_no_command(message):
 
         # Отправляем вакансии
         for vacancy in vacancies_to_show:
-            description = process_vacancy(vacancy)
-            key_skills = extract_key_skills(vacancy)
-            bot.send_message(
-                message.chat.id,
+            description, key_skills_list = process_vacancy(vacancy)  # Распаковываем кортеж
+
+            # Формируем сообщение с описанием вакансии
+            vacancy_message = (
                 f"Название: {vacancy['name']}\n"
                 f"Компания: {vacancy['employer']['name']}\n"
                 f"Обязанности: {description}\n"
-                f"Ссылка: {vacancy['alternate_url']}"
             )
+
+            # Если есть ключевые навыки, добавляем их отдельной строкой
+            if key_skills_list:
+                vacancy_message += f"Ключевые навыки: {', '.join(key_skills_list)}\n"
+
+            # Добавляем ссылку на вакансию
+            vacancy_message += f"Ссылка: {vacancy['alternate_url']}"
+
+            # Отправляем сообщение
+            bot.send_message(message.chat.id, vacancy_message)
 
         # Если вакансий больше 10, сообщаем об этом
         if total_found > 10:
@@ -715,6 +762,7 @@ def search_command_no_command(message):
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
+
 @bot.message_handler(func=lambda message: message.text == "Анализ вакансий")
 def handle_analyze_button(message):
     """
@@ -877,15 +925,11 @@ def analyze_query(message):
             bot.send_message(message.chat.id, "Вакансии не найдены для анализа.")
             return
 
-        descriptions = []
+        # Собираем данные для анализа
         key_skills_list = []
         salaries = []
 
         for vacancy in vacancies["items"]:
-            # Собираем описания
-            description = process_vacancy(vacancy)
-            descriptions.append(description)
-
             # Извлекаем ключевые навыки
             key_skills = extract_key_skills(vacancy)
             if key_skills != "Ключевые навыки не указаны.":
@@ -897,25 +941,24 @@ def analyze_query(message):
                 avg_salary = (salary_data["from"] + salary_data["to"]) / 2
                 salaries.append(avg_salary)
 
-        # Извлечение ключевых фраз из описаний
-        key_phrases = extract_key_phrases(" ".join(descriptions))
+        # Выводим количество вакансий
+        total_vacancies = len(vacancies["items"])
+        bot.send_message(message.chat.id, f"Количество вакансий: {total_vacancies}.")
 
-        # Анализ ключевых навыков
-        common_skills = Counter(key_skills_list).most_common(10)
-
-        # Вычисление средней зарплаты
-        average_salary = sum(salaries) / len(salaries) if salaries else None
-
-        bot.send_message(message.chat.id, f"Количество вакансий: {len(vacancies['items'])}")
-
-        if average_salary:
+        # Выводим среднюю зарплату
+        if salaries:
+            average_salary = sum(salaries) / len(salaries)
             bot.send_message(message.chat.id, f"Средняя зарплата по вакансиям: {int(average_salary)} руб.")
         else:
             bot.send_message(message.chat.id, "Зарплата не указана в достаточном количестве вакансий для расчёта.")
 
+        # Анализ ключевых навыков
+        common_skills = Counter(key_skills_list).most_common(10)
+
+        # Выводим основные требования/знания (ключевые навыки)
         bot.send_message(message.chat.id, "Основные требования/знания:")
-        for phrase, freq in key_phrases:
-            bot.send_message(message.chat.id, f"- {phrase} ({freq} упоминаний)")
+        for skill, freq in common_skills:
+            bot.send_message(message.chat.id, f"- {skill} ({freq} упоминаний)")
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
@@ -997,7 +1040,7 @@ def search_command(message):
                 f"Название: {vacancy['name']}\n"
                 f"Компания: {vacancy['employer']['name']}\n"
                 f"Обязанности: {description}\n"
-                #f"Ключевые навыки: {key_skills}\n"
+                f"Ключевые навыки: {key_skills}\n"
                 f"Ссылка: {vacancy['alternate_url']}"
             )
 
