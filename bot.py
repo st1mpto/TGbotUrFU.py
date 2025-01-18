@@ -762,6 +762,7 @@ def search_command_no_command(message):
 
         # Ограничиваем вывод до 10 вакансий
         vacancies_to_show = all_vacancies[:10]
+        shown_count = len(vacancies_to_show)  # Количество показанных вакансий
 
         # Отправляем вакансии
         for vacancy in vacancies_to_show:
@@ -786,9 +787,11 @@ def search_command_no_command(message):
             # Отправляем сообщение
             bot.send_message(message.chat.id, vacancy_message)
 
-        # Если вакансий больше 10, сообщаем об этом
-        if total_found > 10:
-            bot.send_message(message.chat.id, "Показаны первые 10 вакансий.")
+        # Сообщаем, сколько вакансий показано
+        bot.send_message(
+            message.chat.id,
+            f"Показано {shown_count} вакансий из {total_found}."
+        )
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
