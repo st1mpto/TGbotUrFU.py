@@ -1,5 +1,4 @@
 import telebot
-from telebot import types
 import requests
 import sqlite3
 from bs4 import BeautifulSoup
@@ -15,6 +14,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
+from telebot import types
 
 # Модель для NER
 ner_model = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", aggregation_strategy="simple")
@@ -692,10 +692,7 @@ def handle_search_button(message):
     bot.register_next_step_handler(message, search_command_no_command)
 
 def search_command_no_command(message):
-    """
-    Обрабатывает текст запроса для поиска вакансий.
-    """
-    global ACCESS_TOKEN
+    global cached_vacancies
 
     try:
         ACCESS_TOKEN = get_access_token(CLIENT_ID, CLIENT_SECRET)
@@ -717,7 +714,7 @@ def search_command_no_command(message):
 
         # Распаковываем все значения
         user_id, username, age, gender, city, experience = user_data_entry
-        area_id = get_region_id(city)  # Получаем ID региона на основе города пользователя
+        area_id = get_region_id(city)
 
         bot.send_message(message.chat.id, f"Ищем вакансии для {username} в городе {city}...")
 
@@ -734,22 +731,20 @@ def search_command_no_command(message):
                     query,
                     ACCESS_TOKEN,
                     area=area_id,
-                    per_page=100,  # Увеличиваем количество вакансий на странице
+                    per_page=100,
                     page=page,
                     experience=exp
                 )
                 if not vacancies_data.get("items"):
-                    break  # Если вакансий больше нет, выходим из цикла
-
+                    break
                 all_vacancies.extend(vacancies_data["items"])
                 page += 1
-
-                # Ограничим количество страниц для примера (можно убрать)
-                if page >= 10:  # Например, не более 10 страниц
+                if page >= 10:
                     break
-
-                # Задержка между запросами
                 time.sleep(1)
+
+        # Сохраняем результаты в кэш для текущего пользователя
+        cached_vacancies[message.chat.id] = all_vacancies
 
         # Отображаем общее количество вакансий
         total_found = len(all_vacancies)
@@ -760,41 +755,75 @@ def search_command_no_command(message):
             bot.send_message(message.chat.id, "Вакансии не найдены.")
             return
 
-        # Ограничиваем вывод до 10 вакансий
-        vacancies_to_show = all_vacancies[:10]
-        shown_count = len(vacancies_to_show)  # Количество показанных вакансий
-
-        # Отправляем вакансии
-        for vacancy in vacancies_to_show:
-            description, key_skills_list = process_vacancy(vacancy)  # Распаковываем кортеж
-
-            # Формируем сообщение с описанием вакансии
-            vacancy_message = (
-                f"🔍 Название: {vacancy['name']}\n"
-                f"🏢 Компания: {vacancy['employer']['name']}\n"
-                f"📝 Обязанности: {description}\n"
-            )
-
-            # Добавляем ключевые навыки (даже если их нет)
-            if key_skills_list:
-                vacancy_message += f"🔑 Ключевые навыки: {', '.join(key_skills_list)}\n"
-            else:
-                vacancy_message += "🔑 Ключевые навыки: Не указаны\n"
-
-            # Добавляем ссылку на вакансию
-            vacancy_message += f"🔗 Ссылка: {vacancy['alternate_url']}"
-
-            # Отправляем сообщение
-            bot.send_message(message.chat.id, vacancy_message)
-
-        # Сообщаем, сколько вакансий показано
-        bot.send_message(
-            message.chat.id,
-            f"Показано {shown_count} вакансий из {total_found}."
-        )
+        # Показываем первые 10 вакансий
+        show_vacancies(message.chat.id, all_vacancies, start_index=0)
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
+
+def show_vacancies(chat_id, all_vacancies, start_index=0):
+    """
+    Показывает вакансии, начиная с указанного индекса.
+    """
+    total_found = len(all_vacancies)
+    vacancies_to_show = all_vacancies[start_index:start_index + 10]
+    shown_count = len(vacancies_to_show)
+
+    # Отправляем вакансии
+    for vacancy in vacancies_to_show:
+        description, key_skills_list = process_vacancy(vacancy)
+        vacancy_message = (
+            f"🔍 Название: {vacancy['name']}\n"
+            f"🏢 Компания: {vacancy['employer']['name']}\n"
+            f"📝 Обязанности: {description}\n"
+        )
+        if key_skills_list:
+            vacancy_message += f"🔑 Ключевые навыки: {', '.join(key_skills_list)}\n"
+        else:
+            vacancy_message += "🔑 Ключевые навыки: Не указаны\n"
+        vacancy_message += f"🔗 Ссылка: {vacancy['alternate_url']}"
+        bot.send_message(chat_id, vacancy_message)
+
+    # Сообщаем, сколько вакансий показано
+    message_text = f"Показано {start_index + shown_count} вакансий из {total_found}."
+
+    # Добавляем inline-кнопку "Показать ещё", если есть ещё вакансии
+    if total_found > start_index + shown_count:
+        markup = types.InlineKeyboardMarkup()
+        show_more_button = types.InlineKeyboardButton(
+            text="Показать ещё",
+            callback_data=f"show_more:{start_index + shown_count}"  # Обновляем индекс
+        )
+        markup.add(show_more_button)
+        bot.send_message(chat_id, message_text, reply_markup=markup)
+    else:
+        bot.send_message(chat_id, message_text)
+
+
+
+# Глобальная переменная для хранения вакансий
+cached_vacancies = {}
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("show_more"))
+def handle_show_more(call):
+    """
+    Обрабатывает нажатие кнопки "Показать ещё".
+    """
+    try:
+        # Извлекаем текущий индекс из callback_data
+        start_index = int(call.data.split(":")[1])
+
+        # Получаем кэшированные вакансии для текущего пользователя
+        all_vacancies = cached_vacancies.get(call.message.chat.id, [])
+        if not all_vacancies:
+            bot.send_message(call.message.chat.id, "Данные о вакансиях не найдены. Попробуйте выполнить поиск снова.")
+            return
+
+        # Показываем следующие 10 вакансий
+        show_vacancies(call.message.chat.id, all_vacancies, start_index=start_index)
+
+    except Exception as e:
+        bot.send_message(call.message.chat.id, f"Произошла ошибка: {e}")
 
 @bot.message_handler(func=lambda message: message.text == "📈 Анализ вакансий")
 def handle_analyze_button(message):
