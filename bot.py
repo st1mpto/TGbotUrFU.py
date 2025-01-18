@@ -793,7 +793,7 @@ def search_command_no_command(message):
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
 
-@bot.message_handler(func=lambda message: message.text == "Анализ вакансий")
+@bot.message_handler(func=lambda message: message.text == "📈 Анализ вакансий")
 def handle_analyze_button(message):
     """
     Обрабатывает нажатие кнопки "Анализ вакансий".
@@ -851,63 +851,98 @@ def analyze_query(message):
 
         bot.send_message(message.chat.id, f"Проводим анализ вакансий для {username} в городе {city}.")
 
-        # Получаем вакансии без фильтрации по опыту
-        vacancies = fetch_vacancies(
+        # Получаем первую страницу вакансий
+        vacancies_data = fetch_vacancies(
             query,
             ACCESS_TOKEN,
             area=area_id,
-            per_page=50,  # Увеличиваем количество вакансий для анализа
+            per_page=50,  # Количество вакансий на странице
+            page=0,  # Начинаем с первой страницы
         )
 
-        if not vacancies["items"]:
+        if not vacancies_data.get("items"):
             bot.send_message(message.chat.id, "Вакансии не найдены для анализа.")
             return
 
-        descriptions = []
-        key_skills_list = []
-        salaries = []
+        # Получаем общее количество вакансий
+        total_found = vacancies_data.get("found", 0)
+        bot.send_message(message.chat.id, f"Всего найдено вакансий: {total_found}.")
 
-        for vacancy in vacancies["items"]:
-            # Собираем описания
-            descriptions.append(process_vacancy(vacancy))
+        # Собираем данные о зарплате со всех страниц
+        salaries = []  # Список для хранения зарплат и ссылок на вакансии
+        page = 0
 
-            # Извлекаем ключевые навыки
-            key_skills = extract_key_skills(vacancy)
-            if key_skills != "Ключевые навыки не указаны.":
-                key_skills_list.extend(key_skills.split(", "))
+        while True:
+            # Получаем вакансии для текущей страницы
+            vacancies_data = fetch_vacancies(
+                query,
+                ACCESS_TOKEN,
+                area=area_id,
+                per_page=50,  # Количество вакансий на странице
+                page=page,  # Текущая страница
+            )
 
-            # Извлекаем зарплату, если она указана
-            salary_data = vacancy.get("salary")
-            if salary_data and salary_data.get("from") and salary_data.get("to"):
-                avg_salary = (salary_data["from"] + salary_data["to"]) / 2
-                salaries.append(avg_salary)
+            if not vacancies_data.get("items"):
+                break  # Если вакансий больше нет, выходим из цикла
 
-        # Извлечение частотных слов из описаний
-        common_words = analyze_texts(descriptions)
+            # Обрабатываем вакансии на текущей странице
+            for vacancy in vacancies_data["items"]:
+                # Извлекаем зарплату, если она указана в рублях
+                salary_data = vacancy.get("salary")
+                if salary_data and salary_data.get("currency") == "RUR":
+                    min_salary = salary_data.get("from")
+                    max_salary = salary_data.get("to")
 
-        # Анализ ключевых навыков
-        common_skills = Counter(key_skills_list).most_common(10)
+                    # Если указана только минимальная или максимальная зарплата, используем её
+                    if min_salary is not None or max_salary is not None:
+                        # Сохраняем зарплату и ссылку на вакансию
+                        salaries.append({
+                            "min_salary": min_salary,
+                            "max_salary": max_salary,
+                            "url": vacancy.get("alternate_url", "Ссылка не указана")
+                        })
 
-        # Вычисление средней зарплаты
-        average_salary = sum(salaries) / len(salaries) if salaries else None
+            # Переходим к следующей странице
+            page += 1
 
-        bot.send_message(message.chat.id, f"Количество вакансий: {len(vacancies['items'])}")
+            # Ограничим количество страниц для примера (можно убрать)
+            if page >= 40:  # Например, не более 20 страниц
+                break
 
-        if average_salary:
-            bot.send_message(message.chat.id, f"Средняя зарплата по вакансиям: {int(average_salary)} руб.")
+            # Задержка между запросами (чтобы не перегружать API)
+            time.sleep(1)
+
+        # Анализ зарплат
+        if salaries:
+            # Находим вакансии с самой маленькой и самой высокой зарплатой
+            min_salary_vacancy = min(salaries, key=lambda x: x["min_salary"] or x["max_salary"])
+            max_salary_vacancy = max(salaries, key=lambda x: x["max_salary"] or x["min_salary"])
+
+            # Вычисляем минимальную, максимальную и среднюю зарплату
+            min_salary_all = min(s["min_salary"] or s["max_salary"] for s in salaries)
+            max_salary_all = max(s["max_salary"] or s["min_salary"] for s in salaries)
+            avg_salary = sum((s["min_salary"] or 0 + s["max_salary"] or 0) / 2 for s in salaries) / len(salaries)
+
+            # Выводим зарплаты и ссылки на вакансии
+            bot.send_message(
+                message.chat.id,
+                f"💵 Зарплаты по вакансиям:\n"
+                f"❎ Минимальная: {int(min_salary_all)} руб. (Ссылка: {min_salary_vacancy['url']})\n"
+                f"✅ Максимальная: {int(max_salary_all)} руб. (Ссылка: {max_salary_vacancy['url']})\n"
+                f"💰 Средняя: {int(avg_salary)} руб."
+            )
         else:
-            bot.send_message(message.chat.id, "Зарплата не указана в достаточном количестве вакансий для расчёта.")
-
-        bot.send_message(message.chat.id, "Популярные фразы:")
-        for word, freq in common_words:
-            bot.send_message(message.chat.id, f"- {word} ({freq} упоминаний)")
-
-        bot.send_message(message.chat.id, "Ключевые навыки:")
-        for skill, freq in common_skills:
-            bot.send_message(message.chat.id, f"- {skill} ({freq} упоминаний)")
+            bot.send_message(
+                message.chat.id,
+                "💵 Зарплаты по вакансиям:\n"
+                "❎Минимальная: Не указана\n"
+                "✅Максимальная: Не указана\n"
+                "💰 Средняя: Не указана"
+            )
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
+
 def analyze_texts(texts):
     """
     Анализирует тексты, извлекая частотные слова.
@@ -935,84 +970,7 @@ def handle_search_button(message):
     else:
         bot.send_message(message.chat.id, "Данные о вас не найдены. Используйте команду /start для начала.")
 
-def analyze_query(message):
-    """
-    Обрабатывает ввод запроса для анализа вакансий.
-    """
-    global ACCESS_TOKEN
 
-    query = message.text.strip()
-    if not query:
-        bot.send_message(message.chat.id, "Пожалуйста, укажите корректный запрос.")
-        return
-
-    try:
-        ACCESS_TOKEN = get_access_token(CLIENT_ID, CLIENT_SECRET)
-    except Exception as e:
-        bot.send_message(message.chat.id, f"Ошибка доступа к API: {e}")
-        return
-
-    try:
-        user_data_entry = get_user_data(message.chat.id)
-        if not user_data_entry:
-            bot.send_message(message.chat.id, "Данные о пользователе не найдены. Пожалуйста, начните с команды /start.")
-            return
-
-        # Распаковываем все значения
-        user_id, username, age, gender, city, _ = user_data_entry  # Опыт работы больше не учитывается
-        area_id = get_region_id(city)
-
-        bot.send_message(message.chat.id, f"Проводим анализ вакансий для {username} в городе {city}.")
-
-        # Получаем вакансии без фильтрации по опыту
-        vacancies = fetch_vacancies(
-            query,
-            ACCESS_TOKEN,
-            area=area_id,
-            per_page=50,  # Увеличиваем количество вакансий для анализа
-        )
-
-        if not vacancies["items"]:
-            bot.send_message(message.chat.id, "Вакансии не найдены для анализа.")
-            return
-
-        # Собираем данные для анализа
-        key_skills_list = []
-        salaries = []
-
-        for vacancy in vacancies["items"]:
-            # Извлекаем ключевые навыки
-            key_skills = extract_key_skills(vacancy)
-            if key_skills != "Ключевые навыки не указаны.":
-                key_skills_list.extend(key_skills.split(", "))
-
-            # Извлекаем зарплату, если она указана
-            salary_data = vacancy.get("salary")
-            if salary_data and salary_data.get("from") and salary_data.get("to"):
-                avg_salary = (salary_data["from"] + salary_data["to"]) / 2
-                salaries.append(avg_salary)
-
-        # Выводим количество вакансий
-        total_vacancies = len(vacancies["items"])
-        bot.send_message(message.chat.id, f"Количество вакансий: {total_vacancies}.")
-
-        # Выводим среднюю зарплату
-        if salaries:
-            average_salary = sum(salaries) / len(salaries)
-            bot.send_message(message.chat.id, f"Средняя зарплата по вакансиям: {int(average_salary)} руб.")
-        else:
-            bot.send_message(message.chat.id, "Зарплата не указана в достаточном количестве вакансий для расчёта.")
-
-        # Анализ ключевых навыков
-        common_skills = Counter(key_skills_list).most_common(10)
-
-        # Выводим основные требования/знания (ключевые навыки)
-        bot.send_message(message.chat.id, "Основные требования/знания:")
-        for skill, freq in common_skills:
-            bot.send_message(message.chat.id, f"- {skill} ({freq} упоминаний)")
-
-    except Exception as e:
-        bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
 
 def is_vacancy_suitable(vacancy_experience, user_experience):
     """
