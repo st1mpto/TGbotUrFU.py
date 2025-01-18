@@ -299,6 +299,8 @@ def create_keyboard(buttons, one_time_keyboard=True, include_back=False, include
             markup.add(types.KeyboardButton("🔎 Поиск вакансий"))
         elif button == "Анализ вакансий":
             markup.add(types.KeyboardButton("📈 Анализ вакансий"))
+        elif button == "Помощь":
+            markup.add(types.KeyboardButton("🆘 Помощь"))
         else:
             markup.add(types.KeyboardButton(button))
 
@@ -311,6 +313,7 @@ def create_keyboard(buttons, one_time_keyboard=True, include_back=False, include
         markup.add(types.KeyboardButton("🏠 Главное меню"))
 
     return markup
+
 prompts = {
     "age": "Введите ваш возраст:",
     "gender": "Выберите ваш пол:",
@@ -390,7 +393,7 @@ def start_handler(message):
     Приветственное сообщение и вывод кнопок.
     """
     user_data_entry = get_user_data(message.chat.id)
-    markup = create_keyboard(["🛠️ Изменить данные", "🔎 Поиск вакансий", "📈 Анализ вакансий"], include_main_menu=False)
+    markup = create_keyboard(["🛠️ Изменить данные", "🔎 Поиск вакансий", "📈 Анализ вакансий", "🆘 Помощь"], include_main_menu=False)
 
     if user_data_entry:
         _, username, age, gender, city, experience = user_data_entry
@@ -413,6 +416,14 @@ def start_handler(message):
             prompts["age"],
             "age"
         )
+
+@bot.message_handler(func=lambda message: message.text == "🆘 Помощь")
+def handle_help_button(message):
+    """
+    Обрабатывает нажатие кнопки "🆘 Помощь".
+    """
+    help_command(message)  # Вызываем функцию help_command
+
 @bot.message_handler(func=lambda message: message.text == "Изменить данные")
 def handle_edit_data(message):
     """
@@ -804,7 +815,7 @@ def help_command(message):
         "🔎 *Поиск вакансий* — Найти вакансии по вашему запросу.\n\n"
         "📈 *Анализ вакансий* — Провести анализ вакансий по вашему запросу.\n\n"
         "🏠 *Главное меню* — Вернуться в главное меню.\n\n"
-        "🆘 */help* — Показать это сообщение с описанием команд."
+        "🆘 *Помощь* — Показать сообщение с описанием команд."
     )
 
     bot.send_message(message.chat.id, help_text, parse_mode="Markdown")
