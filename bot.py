@@ -244,6 +244,17 @@ def extract_key_phrases(text):
 
     return ", ".join(most_common_phrases)
 
+def extract_skills_from_text(text, popular_skills):
+    """
+    Извлекает ключевые навыки из текста вакансии.
+    """
+    # Приводим текст к нижнему регистру
+    text = text.lower()
+
+    # Ищем навыки из списка popular_skills
+    found_skills = [skill for skill in popular_skills if skill in text]
+
+    return found_skills
 
 def extract_key_skills(vac):
     """
@@ -900,8 +911,9 @@ def analyze_query(message):
         total_found = vacancies_data.get("found", 0)
         bot.send_message(message.chat.id, f"Всего найдено вакансий: {total_found}.")
 
-        # Собираем данные о зарплате со всех страниц
+        # Собираем данные о зарплате и навыках
         salaries = []  # Список для хранения зарплат и ссылок на вакансии
+        skills_counter = Counter()  # Счетчик для навыков
         page = 0
 
         while True:
@@ -934,11 +946,17 @@ def analyze_query(message):
                             "url": vacancy.get("alternate_url", "Ссылка не указана")
                         })
 
+                # Извлекаем навыки из текста вакансии
+                description = vacancy.get("snippet", {}).get("requirement", "")
+                if description:
+                    skills = extract_skills_from_text(description, popular_skills)
+                    skills_counter.update(skills)
+
             # Переходим к следующей странице
             page += 1
 
             # Ограничим количество страниц для примера (можно убрать)
-            if page >= 40:  # Например, не более 20 страниц
+            if page >= 5:  # Например, не более 5 страниц
                 break
 
             # Задержка между запросами (чтобы не перегружать API)
@@ -971,6 +989,16 @@ def analyze_query(message):
                 "✅Максимальная: Не указана\n"
                 "💰 Средняя: Не указана"
             )
+
+        # Анализ ключевых навыков
+        if skills_counter:
+            top_skills = skills_counter.most_common(10)
+            skills_message = "🔑 Топ-10 ключевых навыков:\n"
+            for skill, count in top_skills:
+                skills_message += f"- {skill.capitalize()} ({count} упоминаний)\n"
+            bot.send_message(message.chat.id, skills_message)
+        else:
+            bot.send_message(message.chat.id, "Ключевые навыки не найдены.")
 
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
@@ -1324,6 +1352,83 @@ categories = {
     "Другое": []  # Сюда попадут слова, которые не подходят ни под одну категорию
 }
 
+popular_skills = [
+    # Общие IT-навыки
+    "python", "java", "javascript", "sql", "git", "docker", "kubernetes",
+    "linux", "aws", "azure", "react", "angular", "vue", "node.js", "django",
+    "flask", "fastapi", "postgresql", "mysql", "mongodb", "redis", "ansible",
+    "terraform", "ci/cd", "machine learning", "data analysis", "pandas",
+    "numpy", "tensorflow", "pytorch", "android", "ios", "swift", "kotlin",
+    "flutter", "html", "css", "sass", "less", "bootstrap", "webpack",
+    "rest api", "graphql", "microservices", "serverless", "qa", "testing",
+    "selenium", "junit", "testng", "automation", "agile", "scrum", "kanban",
+    "jira", "confluence",
+
+    # Информационная безопасность
+    "кибербезопасность", "cybersecurity", "информационная безопасность", "infosec",
+    "сетевой безопасность", "network security", "защита данных", "data protection",
+    "аудит безопасности", "security audit", "политика безопасности", "security policy",
+    "шифрование", "encryption", "криптография", "cryptography",
+    "анализ угроз", "threat analysis", "управление рисками", "risk management",
+    "защита от вредоносного ПО", "malware protection", "антивирусы", "antivirus",
+    "защита от DDoS", "DDoS protection", "брандмауэр", "firewall",
+    "VPN", "виртуальная частная сеть", "virtual private network",
+    "SIEM", "security information and event management",
+    "IDS/IPS", "intrusion detection system", "intrusion prevention system",
+    "PKI", "инфраструктура открытых ключей", "public key infrastructure",
+    "сетевой сканер", "network scanner", "nmap", "nessus",
+    "анализ уязвимостей", "vulnerability assessment", "pentest", "penetration testing",
+    "SOC", "security operations center", "мониторинг безопасности", "security monitoring",
+    "GDPR", "General Data Protection Regulation", "законодательство", "compliance",
+    "ISO 27001", "стандарты безопасности", "security standards",
+    "OWASP", "Open Web Application Security Project",
+    "защита веб-приложений", "web application security",
+    "аутентификация", "authentication", "авторизация", "authorization",
+    "двухфакторная аутентификация", "2FA", "two-factor authentication",
+    "биометрия", "biometrics", "смарт-карты", "smart cards",
+    "безопасность облачных технологий", "cloud security",
+    "безопасность мобильных устройств", "mobile security",
+    "безопасность IoT", "IoT security", "интернет вещей", "internet of things",
+    "безопасность API", "API security", "защита API",
+    "безопасность контейнеров", "container security", "docker security",
+    "безопасность Kubernetes", "Kubernetes security",
+    "безопасность баз данных", "database security",
+    "безопасность операционных систем", "OS security", "Windows security", "Linux security",
+    "безопасность сетей Wi-Fi", "Wi-Fi security", "WPA3", "WPA2",
+    "безопасность электронной почты", "email security", "SPF", "DKIM", "DMARC",
+    "безопасность DNS", "DNS security", "DNSSEC",
+    "безопасность VoIP", "VoIP security",
+    "безопасность блокчейна", "blockchain security",
+    "безопасность искусственного интеллекта", "AI security",
+    "безопасность больших данных", "big data security",
+    "безопасность DevOps", "DevSecOps", "безопасность CI/CD",
+    "безопасность конфиденциальных данных", "sensitive data protection",
+    "безопасность платежных систем", "payment security", "PCI DSS",
+    "безопасность медицинских данных", "healthcare security", "HIPAA",
+    "безопасность финансовых данных", "financial security",
+    "безопасность игровой индустрии", "gaming security",
+    "безопасность социальных сетей", "social media security",
+    "безопасность IoT-устройств", "IoT device security",
+    "безопасность умного дома", "smart home security",
+    "безопасность автомобилей", "car security", "автомобильная безопасность",
+    "безопасность промышленных систем", "industrial security", "ICS security",
+    "безопасность энергетических систем", "energy security",
+    "безопасность телекоммуникаций", "telecom security",
+    "безопасность государственных систем", "government security",
+    "безопасность военных систем", "military security",
+
+    # Российские технологии и стандарты
+    "ФСТЭК", "ФСБ", "Роскомнадзор", "152-ФЗ", "персональные данные",
+    "требования ФСТЭК", "требования ФСБ", "лицензия ФСТЭК", "лицензия ФСБ",
+    "сертификация ФСТЭК", "сертификация ФСБ", "СЗИ", "средства защиты информации",
+    "КСЗИ", "комплексные средства защиты информации", "СОВ", "системы обнаружения вторжений",
+    "СОК", "системы оперативного контроля", "СУИБ", "системы управления информационной безопасностью",
+    "ГОСТ Р 57580", "ГОСТ Р 56939", "ГОСТ Р 50922", "ГОСТ Р 51583",
+    "ISO/IEC 27001", "ISO/IEC 27002", "ISO/IEC 27005", "ISO/IEC 15408",
+    "PCI DSS", "HIPAA", "GDPR", "NIST", "CIS Controls",
+    "Astra Linux", "Ред ОС", "Росатом", "Ростелеком", "Эльбрус",
+    "Код Безопасности", "СёрчИнформ"
+]
 
 
 def extract_key_phrases(text):
